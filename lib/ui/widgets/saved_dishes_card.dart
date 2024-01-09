@@ -5,7 +5,7 @@ class SavedDishCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 550, // Set a fixed height for the container
       child: ListView.builder(
         scrollDirection: Axis.vertical,
@@ -15,23 +15,21 @@ class SavedDishCard extends StatelessWidget {
             color: Colors.black, // Set the background color for each card
             child: Row(
               children: [
-                Container(
-                  child: const Column(
-                    children: [
-                      SizedBox(
-                        height: 25,
-                      ), // Adjusted height for better centering
-                      Text(
-                        "Etli yemek",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white),
-                      ), // Set text color
-                      SizedBox(
-                          height: 25), // Adjusted height for better centering
-                      Icon(Icons.panorama_fish_eye_outlined,
-                          size: 15, color: Colors.white),
-                    ],
-                  ),
+                const Column(
+                  children: [
+                    SizedBox(
+                      height: 25,
+                    ), // Adjusted height for better centering
+                    Text(
+                      "Etli yemek",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ), // Set text color
+                    SizedBox(
+                        height: 25), // Adjusted height for better centering
+                    Icon(Icons.panorama_fish_eye_outlined,
+                        size: 15, color: Colors.white),
+                  ],
                 ),
                 SizedBox(
                   width: 100,

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app/ui/pages/main_page.dart';
@@ -15,11 +17,14 @@ class SigninPage extends StatelessWidget {
         email: emailController.text,
         password: passwordController.text,
       );
+
       print("Signed in as: ${userCredential.user?.email}");
+      Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const MainPage(),
+          builder: (context) =>
+              MainPage(profileName: userCredential.user!.displayName!),
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -31,6 +36,7 @@ class SigninPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Center(
           child: Column(

@@ -1,36 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '/ui/providers/recipe_provider.dart';
 
-import '../widgets/dish_new_card.dart';
+import '../widgets/new_dish_card.dart';
 import '../widgets/dishes_card.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, required this.profileName});
+  final String profileName;
 
   @override
   Widget build(BuildContext context) {
+    RecipeProvider recipeProvider = Provider.of<RecipeProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Merhaba Kaan",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      "Merhaba $profileName",
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    Text("Bugün ne yemek yapmak istersin?")
+                    const Text("Bugün ne yemek yapmak istersin?")
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundImage: AssetImage("assets/images/avatar.png"),
                 ),
               ],
@@ -42,23 +46,22 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: const TextField(
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  child: TextField(
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
                         ),
-                        labelText: "Ne Tarifi Aramak İstersiniz?"),
+                      ),
+                      labelText: "Ne Tarifi Aramak İstersiniz?",
+                    ),
+                    onSubmitted: (value) async {
+                      recipeProvider.setComplexRecipe(value);
+                    },
                   ),
                 ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.settings,
-                    )),
               ],
             ),
             const SizedBox(
@@ -71,21 +74,34 @@ class HomePage extends StatelessWidget {
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: 5,
+                  itemCount: recipeProvider.getRecipes.length,
                   itemBuilder: (context, index) {
-                    return const DishesCard();
+                    return DishesCard(
+                      recipe: recipeProvider.getRecipes[index],
+                    );
                   },
                 ),
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(right: 200),
+              padding: EdgeInsets.only(right: 200, bottom: 2),
               child: Text(
                 "New Recipes",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
             ),
-            const NewDishCard(),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.2,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: recipeProvider.getRecentRecipes.length,
+                  itemBuilder: (context, index) {
+                    return NewDishCard(
+                        recipe: recipeProvider.getRecentRecipes[index]);
+                  }),
+            ),
+            const Spacer(),
           ],
         ),
       ),

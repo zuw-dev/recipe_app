@@ -15,7 +15,7 @@ class SavedPage extends StatelessWidget {
               padding: const EdgeInsets.only(right: 140),
               child: Title(
                   color: Colors.black,
-                  child: Text(
+                  child: const Text(
                     "Recipe Saved",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -41,7 +41,7 @@ class SavedPage extends StatelessWidget {
                 ),
               ],
             ),
-            SavedDishCard(),
+            const SavedDishCard(),
           ],
         ),
       ),

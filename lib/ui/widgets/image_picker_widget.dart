@@ -46,7 +46,11 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
       children: [
         _image == null
             ? const Text('No image selected.')
-            : Image.file(File(_image!.path)),
+            : Image.file(
+                File(_image!.path),
+                width: 250,
+                fit: BoxFit.cover,
+              ),
         const SizedBox(height: 20),
         FloatingActionButton(
           onPressed: _pickImage,

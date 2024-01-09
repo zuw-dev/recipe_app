@@ -1,7 +1,9 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_app/ui/pages/main_page.dart';
-import 'package:recipe_app/ui/pages/sign_in_page.dart';
+import '/ui/pages/main_page.dart';
+import '/ui/pages/sign_in_page.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -11,23 +13,34 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+  late TextEditingController nameController;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+  late TextEditingController confirmPasswordController;
 
-  Future<void> _signUp(BuildContext context) async {
+  @override
+  initState() {
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+    super.initState();
+  }
+
+  Future _signUp(BuildContext context) async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
-      print("Signed up as: ${userCredential.user?.email}");
+      await userCredential.user!.updateDisplayName(nameController.text);
+      print("Signed up as: ${userCredential.user!.email}");
+      print(userCredential.user!);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const MainPage(),
+          builder: (context) => MainPage(profileName: "Kaan"),
         ),
       );
     } on FirebaseAuthException catch (e) {

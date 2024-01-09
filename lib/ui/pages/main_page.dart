@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe_app/ui/pages/home_page.dart';
-import 'package:recipe_app/ui/pages/saved_recipes.dart';
-import 'package:recipe_app/ui/pages/sign_in_page.dart';
-import 'package:recipe_app/ui/pages/user_page.dart';
-import 'package:recipe_app/ui/providers/page_provider.dart';
+import '/ui/pages/home_page.dart';
+import '/ui/pages/post_page.dart';
+import '/ui/pages/saved_recipes.dart';
+import '/ui/pages/user_page.dart';
+import '/ui/providers/page_provider.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
-class MainPage extends StatelessWidget {
-  const MainPage({super.key});
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
+class MainPage extends StatefulWidget {
+  const MainPage({super.key, required this.profileName});
+  final String profileName;
 
-  static List<Widget> _pages = <Widget>[
-    HomePage(),
-    SavedPage(),
-    SigninPage(),
-    UserPage(),
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  late final List<Widget> _pages = <Widget>[
+    HomePage(profileName: widget.profileName),
+    const SavedPage(),
+    const PostPage(),
+    const UserPage(),
   ];
+
+  @override
+  void initState() {
+    Navigator.popUntil(context, (route) => route.isFirst);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     PageProvider pageProvider = Provider.of<PageProvider>(context);
@@ -58,8 +69,8 @@ class MainPage extends StatelessWidget {
                   text: 'Likes',
                 ),
                 GButton(
-                  icon: LineIcons.search,
-                  text: 'Search',
+                  icon: LineIcons.plus,
+                  text: 'Post',
                 ),
                 GButton(
                   icon: LineIcons.user,

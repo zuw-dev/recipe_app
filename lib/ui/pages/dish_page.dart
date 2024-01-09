@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/data/model/recipe_info_model.dart';
 
 class DishPage extends StatelessWidget {
-  const DishPage({super.key});
+  const DishPage({super.key, required this.recipeInfo});
+  final RecipeInfo recipeInfo;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("assets/images/salata1.png"),
-              const Text("Akdeniz Salatası"),
+              Image.network(recipeInfo.image!),
+              Text(recipeInfo.title!),
               const SizedBox(
                 height: 20,
               ),
-              Container(
+              SizedBox(
                 height: 120,
-                child: Expanded(
-                  child: ListView.builder(
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return const Center(child: Text("Malzemeler"));
-                    },
-                  ),
+                child: ListView.builder(
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return const Center(child: Text("Malzemeler"));
+                  },
                 ),
               ),
-              const Text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. ",
-                style: TextStyle(fontSize: 12),
+              Text(
+                recipeInfo.instructions!,
+                style: const TextStyle(fontSize: 12),
                 textAlign: TextAlign.center,
               ),
             ],

@@ -4,7 +4,7 @@ import 'package:recipe_app/ui/providers/page_provider.dart';
 import 'package:recipe_app/ui/widgets/container_color.dart';
 
 class UserPage extends StatelessWidget {
-  UserPage({super.key});
+  const UserPage({super.key});
   @override
   Widget build(BuildContext context) {
     PageProvider pageProvider = Provider.of<PageProvider>(context);
