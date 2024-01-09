@@ -1,4 +1,95 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_app/ui/pages/main_page.dart';
+
+class SigninPage extends StatelessWidget {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  SigninPage({super.key});
+
+  Future<void> _signIn(BuildContext context) async {
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      print("Signed in as: ${userCredential.user?.email}");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MainPage(),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      print("Error: $e");
+      // Handle specific errors if needed
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // ... (your existing UI code)
+
+              // Email TextField
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: TextField(
+                  controller: emailController,
+                  decoration: const InputDecoration(
+                    labelText: "Email", // Add a label for the email input
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                    ),
+                  ),
+                  // ... (your existing settings)
+                ),
+              ),
+
+              // Password TextField
+              const SizedBox(height: 20),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: TextField(
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    labelText: "Password", // Add a label for the password input
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                    ),
+                  ),
+                  // ... (your existing settings)
+                ),
+              ),
+
+              // Login Button
+              ElevatedButton(
+                onPressed: () => _signIn(context),
+                child: const Text('Login'),
+              ),
+
+              // ... (your existing UI code)
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/* import 'package:flutter/material.dart';
 import 'package:recipe_app/ui/pages/main_page.dart';
 import 'package:recipe_app/ui/pages/sign_up_page.dart';
 
@@ -114,3 +205,4 @@ class SigninPage extends StatelessWidget {
     );
   }
 }
+ */
