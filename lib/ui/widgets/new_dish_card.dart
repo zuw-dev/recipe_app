@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/data/model/recipe_model.dart';
@@ -8,7 +9,10 @@ import 'package:recipe_app/ui/providers/recipe_provider.dart';
 import '../pages/dish_page.dart';
 
 class NewDishCard extends StatelessWidget {
-  const NewDishCard({super.key, required this.recipe});
+  const NewDishCard({
+    super.key,
+    required this.recipe,
+  });
   final Recipe recipe;
 
   @override

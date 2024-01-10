@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
+
 import '/ui/pages/home_page.dart';
 import '/ui/pages/post_page.dart';
 import '/ui/pages/saved_recipes.dart';
 import '/ui/pages/user_page.dart';
 import '/ui/providers/page_provider.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:line_icons/line_icons.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.profileName});
@@ -65,8 +66,8 @@ class _MainPageState extends State<MainPage> {
                   text: 'Home',
                 ),
                 GButton(
-                  icon: LineIcons.heart,
-                  text: 'Likes',
+                  icon: LineIcons.bookmark,
+                  text: 'Saved',
                 ),
                 GButton(
                   icon: LineIcons.plus,

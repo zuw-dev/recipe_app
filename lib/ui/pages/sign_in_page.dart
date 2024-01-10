@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_app/ui/pages/error_page.dart';
 import 'package:recipe_app/ui/pages/main_page.dart';
 
 class SigninPage extends StatelessWidget {
@@ -23,8 +24,16 @@ class SigninPage extends StatelessWidget {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              MainPage(profileName: userCredential.user!.displayName!),
+          builder: (context) {
+            if (userCredential.user != null &&
+                userCredential.user!.displayName != null) {
+              return MainPage(profileName: userCredential.user!.displayName!);
+            } else {
+              // Handle the case when user or displayName is null
+              // For example, you can navigate to a different page or show an error message
+              return const ErrorPage(); // Replace with the appropriate handling
+            }
+          },
         ),
       );
     } on FirebaseAuthException catch (e) {

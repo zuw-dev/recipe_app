@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-
-import '../widgets/image_picker_widget.dart';
 
 class PostPage extends StatelessWidget {
   const PostPage({super.key});
@@ -20,15 +17,19 @@ class PostPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              ImagePickerWidget(
-                onImagePicked: (XFile? image) {
+              /*  ImagePickerWidget(
+                onImagePicked: (XFile? image) async {
                   if (image != null) {
-                    print('Image picked: ${image.path}');
+                    // Upload the image to Firebase Storage and get the URL
+                    String imageUrl = await uploadImageToFirebaseStorage(image);
+
+                    // Save the image URL in your Firestore document
+                    // Update Firestore document with imageUrl
                   } else {
                     print("No Image Selected");
                   }
                 },
-              ),
+              ), */
               const SizedBox(
                 height: 20,
               ),
@@ -63,10 +64,29 @@ class PostPage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              ElevatedButton(
-                onPressed: () {},
+              /* ElevatedButton(
+                onPressed: () async {
+                  // Get user ID after authentication (replace with your authentication logic)
+                  String userId = 'user123';
+
+                  // Get references to Firestore collection "Tarifler" and add a new document
+                  CollectionReference tariflerCollection =
+                      FirebaseFirestore.instance.collection('Tarifler');
+
+                  await tariflerCollection.add({
+                    'userId': userId,
+                    'title':
+                        'Tarif adını giriniz', // Replace with your title logic
+                    'recipe':
+                        'Tarifi giriniz', // Replace with your recipe logic
+                    'timestamp': FieldValue.serverTimestamp(),
+                  });
+
+                  // Navigate back or show a success message
+                  Navigator.pop(context);
+                },
                 child: const Text("Tarifi paylaş"),
-              ),
+              ), */
             ],
           ),
         ),

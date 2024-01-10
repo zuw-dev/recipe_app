@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/ui/providers/page_provider.dart';
-import 'package:recipe_app/ui/widgets/container_color.dart';
+import 'package:recipe_app/ui/widgets/custom_grid.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
@@ -25,9 +25,9 @@ class UserPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
+      body: const Column(
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               CircleAvatar(
@@ -90,10 +90,10 @@ class UserPage extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(
+          SizedBox(
             height: 20,
           ),
-          const Row(
+          Row(
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 30),
@@ -111,7 +111,7 @@ class UserPage extends StatelessWidget {
               ),
             ],
           ),
-          const Column(
+          Column(
             children: [
               Row(
                 children: [
@@ -129,29 +129,42 @@ class UserPage extends StatelessWidget {
               ),
             ],
           ),
-          const Column(
+          Column(
             children: [
               Row(
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 30),
                     child: Text("Love to hunt demons for life"),
-                  )
+                  ),
                 ],
               ),
             ],
           ),
+          SizedBox(
+            height: 20,
+          ),
           Expanded(
-            child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: pageProvider.tabs.length,
-                itemBuilder: (context, index) {
-                  return ColoredContainer(
-                    text: pageProvider.tabs[index],
-                  );
-                }),
-          )
+            child: CustomGrid(
+              imageUrls: [
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+                'https://picsum.photos/200',
+              ],
+            ),
+          ),
         ],
       ),
     );

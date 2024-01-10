@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_app/data/model/recipe_info_model.dart';
 
 class DishPage extends StatelessWidget {
@@ -10,31 +11,47 @@ class DishPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.network(recipeInfo.image!),
-              Text(recipeInfo.title!),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: 120,
-                child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return const Center(child: Text("Malzemeler"));
-                  },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 5, color: Colors.white),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.network(
+                    recipeInfo.image!,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              Text(
-                recipeInfo.instructions!,
-                style: const TextStyle(fontSize: 12),
-                textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: Column(
+                children: [
+                  Text(
+                    recipeInfo.title!,
+                    style: GoogleFonts.lato(fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    recipeInfo.instructions!,
+                    style: GoogleFonts.lato(fontSize: 15),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
