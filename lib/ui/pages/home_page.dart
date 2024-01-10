@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app/ui/providers/user_provider.dart';
 import '/ui/providers/recipe_provider.dart';
 
 import '../widgets/new_dish_card.dart';
 import '../widgets/dishes_card.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key, required this.profileName});
-  final String profileName;
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     RecipeProvider recipeProvider = Provider.of<RecipeProvider>(context);
+    UserProvider userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -24,11 +25,11 @@ class HomePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Merhaba $profileName",
+                      "Hello, ${userProvider.getName}",
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    const Text("Bugün ne yemek yapmak istersin?")
+                    const Text("What would you like to cook today?")
                   ],
                 ),
                 const SizedBox(
@@ -55,7 +56,8 @@ class HomePage extends StatelessWidget {
                           Radius.circular(20),
                         ),
                       ),
-                      labelText: "Ne Tarifi Aramak İstersiniz?",
+                      labelText: "What recipe would you like to search?",
+                      labelStyle: TextStyle(fontSize: 14),
                     ),
                     onSubmitted: (value) async {
                       recipeProvider.setComplexRecipe(value);

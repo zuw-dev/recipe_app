@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:math';
 
+import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/data/model/recipe_model.dart';
@@ -24,8 +25,9 @@ class NewDishCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                DishPage(recipeInfo: recipeProvider.getRecipeInfo),
+            builder: (context) => DishPage(
+              recipeInfo: recipeProvider.getRecipeInfo,
+            ),
           ),
         );
       },
@@ -83,17 +85,22 @@ class NewDishCard extends StatelessWidget {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
-                                child: Image.asset(
-                                  "assets/images/avatar.png",
+                                child: Image.network(
+                                  Faker().image.image(
+                                        width: 500,
+                                        height: 500,
+                                        keywords: ['selfie', 'person'],
+                                        random: true,
+                                      ),
                                   width: 35,
                                 ),
                               ),
                               const SizedBox(
                                 width: 10,
                               ),
-                              const Text(
-                                "Kaan Altmisdort",
-                                style: TextStyle(color: Colors.grey),
+                              Text(
+                                Faker().person.name(),
+                                style: const TextStyle(color: Colors.grey),
                               ),
                               const Spacer(),
                               const Icon(

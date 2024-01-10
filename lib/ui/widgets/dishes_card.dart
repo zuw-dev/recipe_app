@@ -19,8 +19,9 @@ class DishesCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                DishPage(recipeInfo: recipeProvider.getRecipeInfo),
+            builder: (context) => DishPage(
+              recipeInfo: recipeProvider.getRecipeInfo,
+            ),
           ),
         );
       },
@@ -59,7 +60,7 @@ class DishesCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  recipe.title!,
+                  truncateText(recipe.title!, 24),
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -73,5 +74,13 @@ class DishesCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String truncateText(String text, int maxLength) {
+    if (text.length <= maxLength) {
+      return text; // Return the original text if it's shorter than or equal to the maxLength
+    } else {
+      return '${text.substring(0, maxLength)}...'; // Truncate the text and add "..."
+    }
   }
 }

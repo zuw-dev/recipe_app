@@ -17,7 +17,7 @@ class SplashPage extends StatelessWidget {
       backgroundColor: Colors.black,
       pageTransitionType: PageTransitionType.fade,
       screenFunction: () async {
-        await recipeProvider.setComplexRecipe("pizza");
+        await recipeProvider.setComplexRecipe("pasta");
         await recipeProvider.setRecentRecipes("salad");
         await recipeProvider.setRecentRecipes("beef");
         recipeProvider.getRecentRecipes.shuffle();

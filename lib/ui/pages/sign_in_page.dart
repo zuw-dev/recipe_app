@@ -2,8 +2,9 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_app/ui/pages/error_page.dart';
+import 'package:provider/provider.dart';
 import 'package:recipe_app/ui/pages/main_page.dart';
+import 'package:recipe_app/ui/providers/user_provider.dart';
 
 class SigninPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -12,27 +13,24 @@ class SigninPage extends StatelessWidget {
   SigninPage({super.key});
 
   Future<void> _signIn(BuildContext context) async {
+    UserProvider _userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
-
+      _userProvider.setName(userCredential.user!.displayName!);
+      await _userProvider.setUser(userCredential.user!.uid);
       print("Signed in as: ${userCredential.user?.email}");
+      print("Signed in as: ${userCredential.user}");
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) {
-            if (userCredential.user != null &&
-                userCredential.user!.displayName != null) {
-              return MainPage(profileName: userCredential.user!.displayName!);
-            } else {
-              // Handle the case when user or displayName is null
-              // For example, you can navigate to a different page or show an error message
-              return const ErrorPage(); // Replace with the appropriate handling
-            }
+            return MainPage(profileName: userCredential.user!.displayName!);
           },
         ),
       );
