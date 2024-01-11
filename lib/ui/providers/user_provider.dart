@@ -18,6 +18,7 @@ class UserProvider with ChangeNotifier {
 
   Future setUser(String uid) async {
     _user = await UserServices().getUserById(uid);
+
     notifyListeners();
   }
 

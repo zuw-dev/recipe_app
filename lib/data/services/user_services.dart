@@ -22,6 +22,7 @@ class UserServices {
     http.Response response = await http.get(getUrl("users/$uid"));
     if (response.statusCode >= 200 && response.statusCode < 300) {
       var data = response.body;
+
       UserModel user = UserModel.fromJson(data);
       return user;
     }

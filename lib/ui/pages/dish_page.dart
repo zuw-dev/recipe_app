@@ -17,6 +17,7 @@ class DishPage extends StatelessWidget {
           IconButton(
             onPressed: () async {
               userProvider.getUser.saved ??= [];
+
               userProvider.getUser.saved!.add(recipeInfo);
               await userProvider.postUser(
                 userProvider.getUser,

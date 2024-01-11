@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/ui/providers/recipe_provider.dart';
-import 'package:recipe_app/ui/providers/user_provider.dart';
+
 import '/ui/pages/splash_page.dart';
 import 'ui/providers/page_provider.dart';
 
@@ -11,9 +11,12 @@ void main() async {
   await Firebase.initializeApp();
   runApp(MultiProvider(
     providers: [
-      ListenableProvider(create: (_) => PageProvider()),
-      ListenableProvider(create: (_) => RecipeProvider()),
-      ListenableProvider(create: (_) => UserProvider()),
+      ListenableProvider(
+        create: (_) => PageProvider(),
+      ),
+      ListenableProvider(
+        create: (_) => RecipeProvider(),
+      ),
     ],
     child: const MyApp(),
   ));
