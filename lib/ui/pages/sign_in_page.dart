@@ -30,14 +30,7 @@ class SigninPage extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (context) {
-            if (userCredential.user != null &&
-                userCredential.user!.displayName != null) {
-              return MainPage();
-            } else {
-              // Handle the case when user or displayName is null
-              // For example, you can navigate to a different page or show an error message
-              return const ErrorPage(); // Replace with the appropriate handling
-            }
+            return MainPage();
           },
         ),
       );
