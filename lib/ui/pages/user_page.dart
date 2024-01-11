@@ -1,15 +1,17 @@
+import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe_app/ui/providers/page_provider.dart';
+import 'package:recipe_app/ui/providers/user_provider.dart';
 import 'package:recipe_app/ui/widgets/custom_grid.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
   @override
   Widget build(BuildContext context) {
-    PageProvider pageProvider = Provider.of<PageProvider>(context);
+    UserProvider userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         centerTitle: true,
         title: const Text(
           "Profile",
@@ -25,18 +27,24 @@ class UserPage extends StatelessWidget {
           ),
         ],
       ),
-      body: const Column(
+      body: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage("assets/images/avatar.png"),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.network(
+                  Faker().image.image(
+                    keywords: ["selfie", "person", "human"],
+                    width: 100,
+                    height: 100,
+                  ),
+                ),
               ),
               Column(
                 children: [
-                  Text(
+                  const Text(
                     "Recipe",
                     style: TextStyle(
                       color: Colors.grey,
@@ -44,15 +52,17 @@ class UserPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "1",
-                    style: TextStyle(
+                    userProvider.getUser.posts != null
+                        ? userProvider.getUser.posts!.length.toString()
+                        : "0",
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
                     ),
                   ),
                 ],
               ),
-              Column(
+              const Column(
                 children: [
                   Text(
                     "Followers",
@@ -70,7 +80,7 @@ class UserPage extends StatelessWidget {
                   ),
                 ],
               ),
-              Column(
+              const Column(
                 children: [
                   Text(
                     "Following",
@@ -90,28 +100,28 @@ class UserPage extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 30),
+                padding: const EdgeInsets.only(left: 30),
                 child: Text(
-                  "Kaan Altmışdört",
-                  style: TextStyle(
+                  userProvider.getName!,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
                 width: 10,
               ),
             ],
           ),
-          Column(
+          const Column(
             children: [
               Row(
                 children: [
@@ -129,41 +139,23 @@ class UserPage extends StatelessWidget {
               ),
             ],
           ),
-          Column(
+          const Column(
             children: [
               Row(
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 30),
-                    child: Text("Love to hunt demons for life"),
+                    child: Text("Let him COOK!"),
                   ),
                 ],
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Expanded(
-            child: CustomGrid(
-              imageUrls: [
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-                'https://picsum.photos/200',
-              ],
-            ),
+          const Expanded(
+            child: CustomGrid(),
           ),
         ],
       ),

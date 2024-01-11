@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/ui/widgets/saved_dishes_card.dart';
+import 'package:provider/provider.dart';
+import 'package:recipe_app/data/model/recipe_model.dart';
+import 'package:recipe_app/ui/providers/user_provider.dart';
+import 'package:recipe_app/ui/widgets/new_dish_card.dart';
 
 class SavedPage extends StatelessWidget {
   const SavedPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -16,32 +20,31 @@ class SavedPage extends StatelessWidget {
               child: Title(
                   color: Colors.black,
                   child: const Text(
-                    "Recipe Saved",
+                    "Saved Recipes",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                     ),
                   )),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: const TextField(
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
+            userProvider.getUser.saved != null
+                ? Expanded(
+                    child: ListView.builder(
+                      itemCount: userProvider.getUser.saved!.length,
+                      itemBuilder: (context, index) {
+                        return NewDishCard(
+                          recipe: Recipe(
+                            id: userProvider.getUser.saved![index].id,
+                            title: userProvider.getUser.saved![index].title,
+                            image: userProvider.getUser.saved![index].image,
+                            imageType:
+                                userProvider.getUser.saved![index].imageType,
                           ),
-                        ),
-                        labelText: "Ne Tarifi Aramak İstersiniz?"),
-                  ),
-                ),
-              ],
-            ),
-            const SavedDishCard(),
+                        );
+                      },
+                    ),
+                  )
+                : const SizedBox.shrink(),
           ],
         ),
       ),

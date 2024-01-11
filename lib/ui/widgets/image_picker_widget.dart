@@ -3,19 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHomePage(),
-    );
-  }
-}
-
 class ImagePickerWidget extends StatefulWidget {
   final Function(XFile?) onImagePicked;
 
@@ -58,27 +45,6 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
           child: const Icon(Icons.add_a_photo),
         ),
       ],
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Image Picker Example'),
-      ),
-      body: Center(
-        child: ImagePickerWidget(
-          onImagePicked: (XFile? image) {
-            // Handle the picked image as you want
-            print('Image picked: ${image?.path}');
-          },
-        ),
-      ),
     );
   }
 }

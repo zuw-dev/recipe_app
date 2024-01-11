@@ -2,6 +2,9 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:recipe_app/data/model/user_model.dart';
+import 'package:recipe_app/ui/providers/user_provider.dart';
 import '/ui/pages/main_page.dart';
 import '/ui/pages/sign_in_page.dart';
 
@@ -28,6 +31,8 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Future _signUp(BuildContext context) async {
+    UserProvider _userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -35,12 +40,20 @@ class _SignupPageState extends State<SignupPage> {
         password: passwordController.text,
       );
       await userCredential.user!.updateDisplayName(nameController.text);
+      await _userProvider.postUser(
+          UserModel(
+            id: userCredential.user!.uid,
+            saved: [],
+            posts: [],
+          ),
+          userCredential.user!.uid);
+      _userProvider.setName(nameController.text);
       print("Signed up as: ${userCredential.user!.email}");
       print(userCredential.user!);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => MainPage(profileName: "Kaan"),
+          builder: (context) => const MainPage(),
         ),
       );
     } on FirebaseAuthException catch (e) {

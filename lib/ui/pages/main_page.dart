@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
-
 import '/ui/pages/home_page.dart';
 import '/ui/pages/post_page.dart';
 import '/ui/pages/saved_recipes.dart';
@@ -10,8 +9,7 @@ import '/ui/pages/user_page.dart';
 import '/ui/providers/page_provider.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key, required this.profileName});
-  final String profileName;
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -19,7 +17,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late final List<Widget> _pages = <Widget>[
-    HomePage(profileName: widget.profileName),
+    const HomePage(),
     const SavedPage(),
     const PostPage(),
     const UserPage(),
