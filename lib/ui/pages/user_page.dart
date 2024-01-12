@@ -90,7 +90,7 @@ class UserPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "31",
+                    "30",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
